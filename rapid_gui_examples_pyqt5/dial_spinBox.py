@@ -18,7 +18,10 @@ class Form(QDialog):
         self.spinBox.valueChanged.connect(self.dial.setValue)
         self.dial.valueChanged.connect(self.spinBox.setValue)
         self.setWindowTitle('Signals and Slots')
+    
 
+    def test(self):
+        pass
 app = QApplication(sys.argv)
 form = Form()
 form.show()
