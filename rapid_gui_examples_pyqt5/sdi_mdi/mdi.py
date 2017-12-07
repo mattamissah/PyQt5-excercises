@@ -1,3 +1,4 @@
+import sdi_mdi.textedit
 from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMdiArea
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QFile

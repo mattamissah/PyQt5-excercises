@@ -1,3 +1,4 @@
+import os
 from PyQt5.QtWidgets import QMainWindow, QTextEdit, QAction, QMessageBox, QApplication, QFileDialog
 from PyQt5.QtGui import QIcon, QKeySequence
 from PyQt5.QtCore import Qt, QFile, QIODevice, QFileInfo, QTextStream
@@ -149,7 +150,7 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("SDI Text Editor - {0}".format(QFileInfo(self.filename).fileName()))
 
     def fileSave(self):
-        if self.filename.startsWith("Unnamed"):
+        if self.filename.startswith("Unnamed"):
             return self.fileSaveAs()
         fh = None
         try:
@@ -170,13 +171,11 @@ class MainWindow(QMainWindow):
         return True
 
     def fileSaveAs(self):
-        filename = QFileDialog.getSaveFileName(self,
-                                               "SDI Text Editor -- Save File As", self.filename,
-                                               "SDI Text files (*.txt *.*)")
-        if not filename:
+        filename, _ = QFileDialog.getSaveFileName(self,"SDI Text Editor -- Save File As", self.filename,
+                                                  ' txt files (*.txt)')
+        if filename:
             self.filename = filename
-            self.setWindowTitle("SDI Text Editor - {0}".format(
-                QFileInfo(self.filename).fileName()))
+            self.setWindowTitle("SDI Text Editor - {0}".format(QFileInfo(self.filename).fileName()))
             return self.fileSave()
         return False
 
@@ -184,12 +183,13 @@ class MainWindow(QMainWindow):
         QApplication.closeAllWindows()
 
     def fileNew(self):
-        MainWindow.show()
+        MainWindow().show()
 
     def fileOpen(self):
-        filename = QFileDialog.getOpenFileName(self, 'SDI Text Editor -- Open File')
-        if not filename:
-            if not self.editor.document().isModified() and self.filename.startsWith('Unnamed'):
+        filename, _ = QFileDialog.getOpenFileName(self, 'SDI Text Editor -- Open File', ' *.txt')
+        print(filename)
+        if filename:
+            if not self.editor.document().isModified():
                 self.filename = filename
                 self.loadFile()
             else:
