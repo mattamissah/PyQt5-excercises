@@ -2,7 +2,7 @@ import platform
 from PyQt5.QtCore import QAbstractTableModel, QDataStream, QFile, QIODevice, QModelIndex, QRegExp, QSize,  QVariant, Qt
 from PyQt5.QtWidgets import QApplication, QComboBox, QLineEdit, QSpinBox, QStyle, QStyledItemDelegate, QTextEdit
 from PyQt5.QtGui import QColor, QTextDocument
-#import richtextlineedit
+import richtextlineedit
 
 NAME, OWNER, COUNTRY, DESCRIPTION, TEU = range(5)
 
@@ -388,7 +388,7 @@ class ShipDelegate(QStyledItemDelegate):
             return editor
         elif index.column() == DESCRIPTION:
             return
-            #editor = richtextlineedit.RichTextLineEdit(parent)
+            editor = richtextlineedit.RichTextLineEdit(parent)
             #self.connect(editor, SIGNAL("returnPressed()"),self.commitAndCloseEditor)
             #return editor
         else:
