@@ -149,8 +149,7 @@ class ShipTableModel(QAbstractTableModel):
         return Qt.ItemFlags(QAbstractTableModel.flags(self, index) | Qt.ItemIsEditable)
 
     def data(self, index, role=Qt.DisplayRole):
-        if (not index.isValid() or
-                not (0 <= index.row() < len(self.ships))):
+        if (not index.isValid() or not (0 <= index.row() < len(self.ships))):
             return QVariant()
         ship = self.ships[index.row()]
         column = index.column()

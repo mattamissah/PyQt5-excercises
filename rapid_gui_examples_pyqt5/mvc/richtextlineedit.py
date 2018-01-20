@@ -69,7 +69,7 @@ class RichTextLineEdit(QTextEdit):
                 event.accept()
                 return
         if event.key() in (Qt.Key_Enter, Qt.Key_Return):
-            self.emit(returnPressed)
+            self.returnPressed.emit()
             event.accept()
         else:
             QTextEdit.keyPressEvent(self, event)

@@ -58,7 +58,7 @@ class MainForm(QDialog):
 
         for tableView in (self.tableView1, self.tableView2):
             header = tableView.horizontalHeader()
-            header.sectionClicked.connect(self.sortTable())
+            header.sectionClicked.connect(self.sortTable)
         addShipButton.clicked.connect(self.addShip)
         removeShipButton.clicked.connect(self.removeShip)
         quitButton.clicked.connect(self.accept)
@@ -127,20 +127,16 @@ class MainForm(QDialog):
         if not index.isValid():
             return
         row = index.row()
-        name = self.model.data(
-            self.model.index(row, ships.NAME)).toString()
-        owner = self.model.data(
-            self.model.index(row, ships.OWNER)).toString()
-        country = self.model.data(
-            self.model.index(row, ships.COUNTRY)).toString()
+        name = self.model.data(self.model.index(row, ships.NAME)).toString()
+        owner = self.model.data(self.model.index(row, ships.OWNER)).toString()
+        country = self.model.data(self.model.index(row, ships.COUNTRY)).toString()
         if (QMessageBox.question(self, "Ships - Remove", "Remove {} of {}/{}?".format(name,owner,country),
                                  (QMessageBox.Yes | QMessageBox.No))) == QMessageBox.No:
             return
         self.model.removeRows(row)
         self.resizeColumns()
 
-
 app = QApplication(sys.argv)
 form = MainForm()
 form.show()
-app.exec_()
+sys.exit(app.exec_())
